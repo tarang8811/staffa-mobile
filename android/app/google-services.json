@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1007743977250",
+    "firebase_url": "https://staffa-13e8a.firebaseio.com",
+    "project_id": "staffa-13e8a",
+    "storage_bucket": "staffa-13e8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007743977250:android:6bd9bd8d23e7e084bf877b",
+        "android_client_info": {
+          "package_name": "com.staffaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007743977250-j90tih0nrgkg4j0dcg9is9hnp2n9o91u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCSX7TwAbtHRk6PE5oqs045XGE2Ht2MjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007743977250-j90tih0nrgkg4j0dcg9is9hnp2n9o91u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
