@@ -83,12 +83,23 @@ export default class ChatsView extends Component {
                 data={this.state.users}
                 renderItem={({ item }) =>
                   <TouchableOpacity style={context.utilities.styles.ContactsRowStyle} onPress={() => { this.onItemClick(item) }}>
+                  { 
+                    item.user.bio && item.user.bio.profilePicURL &&
                     <Image source={{ uri: item.user.bio.profilePicURL }} style={context.utilities.styles.ContactsProfileImageStyle} />
+
+                  }
                     <View style={{ flex: 1}}>
-                      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={[context.utilities.styles.ContactsUserNameTextStyle,{marginRight:0}]}>{item.user.registerData.firstName + " " + item.user.registerData.lastName}</Text>
-                        <Text style={context.utilities.styles.ChatsViewTopicNameTextStyle}> {" - " + item.topicName}</Text>
-                      </View>
+                      {item.user.registerData ?
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                          <Text style={[context.utilities.styles.ContactsUserNameTextStyle,{marginRight:0}]}>{item.user.registerData.firstName + " " + item.user.registerData.lastName}</Text>
+                          <Text style={context.utilities.styles.ChatsViewTopicNameTextStyle}> {" - " + item.topicName}</Text>
+                        </View>
+                        :
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                          <Text style={[context.utilities.styles.ContactsUserNameTextStyle,{marginRight:0}]}>Agency Name</Text>
+                          <Text style={context.utilities.styles.ChatsViewTopicNameTextStyle}> {" - " + item.topicName}</Text>
+                        </View>
+                      }
                       {item.singleMessage && item.singleMessage.message &&
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                           <Text style={context.utilities.styles.ChatsViewLastMessageTextStyle}>{item.singleMessage.message}</Text>

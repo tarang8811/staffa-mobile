@@ -57,11 +57,7 @@ export default class AddAddressScreen extends Component {
       address1:this.state.address1,
       address2: this.state.address2,
       address3: this.state.address3,
-      postcode:this.state.postcode,
-      accountName:this.state.accountName,
-      accountNumber:this.state.accountNumber,
-      bankName:this.state.bankName,
-      sortCode:this.state.sortCode
+      postcode:this.state.postcode
   }};
   this.context.apiService.updateFirestoreUserData(this.context.currentUser.uid, data); 
   this.context.updateUserData((user) => {
@@ -85,22 +81,6 @@ export default class AddAddressScreen extends Component {
    }
    if(this.state.postcode === ""){
     this.context.showToast("Please enter postcode");
-    return false;
-   }
-   if(this.state.accountName === ""){
-    this.context.showToast("Please enter account name");
-    return false;
-   }
-   if(this.state.bankName === ""){
-    this.context.showToast("Please enter bank name");
-    return false;
-   }
-   if(this.state.accountNumber === ""){
-    this.context.showToast("Please enter account number");
-    return false;
-   }
-   if(this.state.sortCode === ""){
-    this.context.showToast("Please enter sort code");
     return false;
    }
   return true;
@@ -180,63 +160,6 @@ export default class AddAddressScreen extends Component {
                     <TouchableOpacity onPress={ () => this.onConnectStripe()}>
                         <Text style = {context.utilities.styles.LoginButtonEnableTextStyle}>{!!context.currentUser.stripe_account_id ? 'Connect with Stripe' : 'Connected to Stripe'}</Text>
                     </TouchableOpacity>
-                    {/* <View style = {[context.utilities.styles.InputTextBoxStyle, {marginTop:10}]}>
-                        <TextInput
-                           ref = {this.refAccountName}
-                           style = {this.state.accountName === '' ? context.utilities.styles.InputTextDisableStyle : context.utilities.styles.InputTextEnableStyle}
-                           placeholder = "Account Name"
-                           onChangeText = {(text) => {this.setState({accountName:text})}}
-                           returnKeyType= { "next" }
-                           underlineColorAndroid='transparent'
-                           placeholderTextColor={context.utilities.colors.hintColor}
-                           textAlign={'center'}
-                           value = {this.state.accountName}
-                           onSubmitEditing = {() => {this.refBankName.current.focus()}}
-                         />
-                    </View>
-                    <View style = {[context.utilities.styles.InputTextBoxStyle, {marginTop:2}]}>
-                        <TextInput
-                           ref = {this.refBankName}
-                           style = {this.state.bankName === '' ? context.utilities.styles.InputTextDisableStyle : context.utilities.styles.InputTextEnableStyle}
-                           placeholder = "Bank Name"
-                           onChangeText = {(text) => {this.setState({bankName:text})}}
-                           returnKeyType= { "next" }
-                           underlineColorAndroid='transparent'
-                           placeholderTextColor={context.utilities.colors.hintColor}
-                           textAlign={'center'}
-                           value = {this.state.bankName}
-                           onSubmitEditing = {() => {this.refAccountNumber.current.focus()}}
-                         />
-                    </View>
-                    <View style = {[context.utilities.styles.InputTextBoxStyle, {marginTop:2}]}>
-                        <TextInput
-                           ref = {this.refAccountNumber}
-                           style = {this.state.accountNumber === '' ? context.utilities.styles.InputTextDisableStyle : context.utilities.styles.InputTextEnableStyle}
-                           placeholder = "Bank Account Number"
-                           onChangeText = {(text) => {this.setState({accountNumber:text})}}
-                           returnKeyType= { "next" }
-                           underlineColorAndroid='transparent'
-                           placeholderTextColor={context.utilities.colors.hintColor}
-                           textAlign={'center'}
-                           value = {this.state.accountNumber}
-                           onSubmitEditing = {() => {this.refSortCode.current.focus()}}
-                         />
-                    </View>
-                    <View style = {[context.utilities.styles.InputTextBoxStyle, {marginTop:2}]}>
-                        <TextInput
-                           ref = {this.refSortCode}
-                           style = {this.state.sortCode === '' ? context.utilities.styles.InputTextDisableStyle : context.utilities.styles.InputTextEnableStyle}
-                           placeholder = "Sortcode"
-                           onChangeText = {(text) => {this.setState({sortCode:text})}}
-                           returnKeyType= { "done" }
-                           underlineColorAndroid='transparent'
-                           placeholderTextColor={context.utilities.colors.hintColor}
-                           textAlign={'center'}
-                           value = {this.state.sortCode}
-                           onSubmitEditing = {() => {this.onNextClick()}}
-                         />
-                    </View> */}
-
                     <TouchableOpacity onPress={ () => this.onNextClick()}>
                         <Text style = {context.utilities.styles.LoginButtonEnableTextStyle}>NEXT</Text>
                     </TouchableOpacity>

@@ -49,8 +49,17 @@ export default class ContactsView extends Component {
                 data={this.state.users}
                 renderItem={({ item }) =>
                   <TouchableOpacity style={context.utilities.styles.ContactsRowStyle} onPress={() => { this.onItemClick(item) }}>
+                  {
+                    item.bio && item.bio.profilePicURL &&
                     <Image source={{ uri: item.bio.profilePicURL }} style={context.utilities.styles.ContactsProfileImageStyle} />
-                    <Text style={context.utilities.styles.ContactsUserNameTextStyle}>{item.registerData.firstName + " " + item.registerData.lastName}</Text>
+                  }
+                  {
+                    item.registerData ? 
+                    <Text style={context.utilities.styles.ContactsUserNameTextStyle}>{item.registerData.firstName + " " + item.registerData.lastName}</Text> 
+                    :
+                    <Text style={context.utilities.styles.ContactsUserNameTextStyle}>Agency Name</Text>
+                  }
+                    
                   </TouchableOpacity>
                 }
               />
