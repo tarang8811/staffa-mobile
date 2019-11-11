@@ -84,8 +84,12 @@ export default class ChatsView extends Component {
                 renderItem={({ item }) =>
                   <TouchableOpacity style={context.utilities.styles.ContactsRowStyle} onPress={() => { this.onItemClick(item) }}>
                   { 
-                    item.user.bio && item.user.bio.profilePicURL &&
+                    item.user.bio && item.user.bio.profilePicURL ?
                     <Image source={{ uri: item.user.bio.profilePicURL }} style={context.utilities.styles.ContactsProfileImageStyle} />
+                    : 
+                    <View style={[context.utilities.styles.ContactsProfileImageStyle, {alignItems: 'center', backgroundColor: 'blue', justifyContent: 'center'}]}>
+                      <Text style={[context.utilities.styles.ChatsViewTopicNameTextStyle, { fontSize: 14, color: 'white', marginRight: 0}]}>{item.user.firstName.charAt(0) + "" + item.user.lastName.charAt(0)}</Text>
+                    </View>
 
                   }
                     <View style={{ flex: 1}}>
@@ -96,7 +100,7 @@ export default class ChatsView extends Component {
                         </View>
                         :
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                          <Text style={[context.utilities.styles.ContactsUserNameTextStyle,{marginRight:0}]}>Agency Name</Text>
+                          <Text style={[context.utilities.styles.ContactsUserNameTextStyle,{marginRight:0}]}>{item.user.firstName + " " + item.user.lastName}</Text>
                           <Text style={context.utilities.styles.ChatsViewTopicNameTextStyle}> {" - " + item.topicName}</Text>
                         </View>
                       }

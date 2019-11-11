@@ -108,9 +108,10 @@ export default class ChatScreen extends Component {
                   <TouchableOpacity onPress={() => context.goBack(this)}>
                     <Image source={require('../../../../images/back.png')} style={{ width: 30, height: 30, marginLeft: 7 }} tintColor={context.utilities.colors.white} />
                   </TouchableOpacity>
-                  {/* <Image source={{ uri: context.currentChatReceiver.bio.profilePicURL }} style={context.utilities.styles.ChatProfileImageStyle} />
-                  <Text style={context.utilities.styles.ChatReceiverNameTextStyle}>{context.currentChatReceiver.registerData.firstName}</Text> */}
-
+                  <View style={[context.utilities.styles.ContactsProfileImageStyle, {alignItems: 'center', backgroundColor: 'blue', justifyContent: 'center'}]}>
+                    <Text style={[context.utilities.styles.ChatsViewTopicNameTextStyle, { fontSize: 14, color: 'white', marginRight: 0}]}>{context.currentChatReceiver.firstName.charAt(0) + "" + context.currentChatReceiver.lastName.charAt(0)}</Text>
+                  </View>
+                  <Text style={context.utilities.styles.ChatReceiverNameTextStyle}>{context.currentChatReceiver.firstName + " " + context.currentChatReceiver.lastName}</Text>
                   <Text style={{ fontSize: 13, fontWeight: 'bold', color: context.utilities.colors.white, marginRight: 10 }}>{this.state.currentTopic}</Text>
                 </View>
 

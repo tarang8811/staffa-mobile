@@ -46,13 +46,7 @@ _renderTitleIndicator (context) {
     {(context) => (
       <View style={context.utilities.styles.root} ref={(ref) => { this.context = context; }}>
           <Header title="Messages" {...platformHeaderProps} />
-          <IndicatorViewPager
-                    style={context.utilities.styles.TabIndicatorViewPagerStyle}
-                    indicator={this._renderTitleIndicator(context)}
-                >
-            <ChatsView screen = {this}/>
-            <ContactsView screen = {this}/>
-          </IndicatorViewPager>
+          <ChatsView screen = {this}/>
       </View>
      )}
      </AppConsumer> 
