@@ -354,6 +354,20 @@ export default class ApiService {
     firebase.notifications().displayNotification(data);
   }
 
+  getShiftsData(latitude, longitude, radius, uom="km", callback) {
+    const filters = `{"area" : {"radius": ${radius}, "uom": "${uom}", "point": [${latitude}, ${longitude}]}}`
+    const url = `${Strings.BASE_URL}/getBasedOnGeoLocation?$filters=${filters}`
+    fetch(url)
+    .then((response) => {
+      response.json().then(res => {
+        callback(res.map(r => r.data))
+      })
+    }).catch(err => {
+      callback(err)
+      console.log(err)
+    })
+  }
+
   getScreenName(data) {
     if (data.addressData && data.stripe_account_id) {
       if (data.isTermsAccepted) {

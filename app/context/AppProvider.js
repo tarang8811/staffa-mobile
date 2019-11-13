@@ -42,6 +42,7 @@ export default class AppProvider extends React.Component {
       // Notifications of user
       userNotificationCount: 0,
       userNotifications: [],
+      shiftsData: [],
 
       openFromNotification: false,
       notificationData: null,
@@ -508,6 +509,7 @@ export default class AppProvider extends React.Component {
           // User Notifications
           userNotificationCount: this.state.userNotificationCount,
           userNotifications: this.state.userNotifications,
+          shiftsData: this.state.shiftsData
         }}>
         {this.props.children}
 

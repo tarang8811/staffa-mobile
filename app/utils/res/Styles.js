@@ -553,5 +553,10 @@ module.exports = StyleSheet.create({
       color:Colors.headerBGColor,
       textAlign:'center',
       fontSize: 15
+  },
+  jobStyles: {
+    marginTop: 6,
+    fontWeight: '500',
+    fontSize: 16
   }
 });

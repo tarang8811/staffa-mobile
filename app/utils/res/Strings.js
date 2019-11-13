@@ -138,5 +138,7 @@ const Strings = {
 
   dialogButtonOK:"OK",
   dialogButtonCancel:"CANCEL",
+
+  BASE_URL: "https://us-central1-staffa-13e8a.cloudfunctions.net"
 };
 export default Strings;

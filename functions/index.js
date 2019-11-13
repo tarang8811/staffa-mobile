@@ -8,6 +8,7 @@ module.exports = {
     ...require("./updateContract/ContractUpdate"),
     ...require("./chatMessages/ChatMessageReceived"),
     ...require("./payments/stripeApis"),
+    ...require("./shifts/shifts"),
 };
 
 
