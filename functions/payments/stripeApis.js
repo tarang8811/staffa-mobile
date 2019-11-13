@@ -56,8 +56,8 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
         payment_method_types: ['card'],
         line_items: [lineItem],
         customer: body.customerId,
-        success_url: 'http://localhost:3000/createJob?response=success',
-        cancel_url: 'https://localhost:3000/createJob?response=failed',
+        success_url: 'https://staffa-13e8a.firebaseapp.com/createJob?response=success',
+        cancel_url: 'https://staffa-13e8a.firebaseapp.com/createJob?response=failed',
       }).then(session => {
         // Getting the session id
         var sessionId = session.id;
