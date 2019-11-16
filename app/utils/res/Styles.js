@@ -558,5 +558,9 @@ module.exports = StyleSheet.create({
     marginTop: 6,
     fontWeight: '500',
     fontSize: 16
+  },
+  appliedStyle: {
+    marginTop: 10,
+    alignSelf: 'flex-end'
   }
 });

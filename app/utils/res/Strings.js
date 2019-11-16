@@ -96,6 +96,8 @@ const Strings = {
   APP_SCREEN_MESSAGES:"MessagesScreen",
   APP_SCREEN_NOTIFICATIONS:"NotificationsScreen",
   APP_SCREEN_CHAT:"ChatScreen",
+  APP_SCREEN_SETTINGS:"SettingsScreen",
+  APP_BID_SCREEN:"BidScreen",
 
   registerNotificationMsg:'We need to notify you of compliance related matters, payments and offers relating to your vocation and aspirations. \n\n You can change this settings at any time in your device settings.',
   registerVerificationMsg:'We need to verify your identity using your government issued identification documentation.',
@@ -119,7 +121,9 @@ const Strings = {
 
   FS_COLLECTION_APP_RESOURCES : "AppResources",
   FS_DOC_CONTRACTS : "Contracts",
-  
+  FS_COLLECTION_JOBS: "jobs",
+  FS_COLLECTION_BIDS: "Bids",
+
   APP_RESOURCE_EMPLOYMENT_CONTRACT:'EmploymentContract',
   APP_RESOURCE_TNC:'TermsConditions',
   APP_RESOURCE_PRIVACY_POLICY:'PrivacyPolicyContract',

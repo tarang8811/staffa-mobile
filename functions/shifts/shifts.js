@@ -36,10 +36,12 @@ exports.getBasedOnGeoLocation = functions.https.onRequest((req, res) => {
         })
         .get()
         .then((value) => {
-
+          
         // All GeoDocument returned by GeoQuery, like the GeoDocument added above
         const docs = value.docs.map((doc) => {
+          console.log(doc)
           doc['data'] = doc['data']();
+          doc.data.id = doc.id
           return doc;
         });
 
@@ -70,14 +72,14 @@ exports.getBasedOnGeoLocation = functions.https.onRequest((req, res) => {
  * @param {Number} req.body.data.price
  */
 
-exports.saveJob = functions.https.onRequest((req, res) => {
+exports.saveJobs = functions.https.onRequest((req, res) => {
   
   if(req.method === 'POST'){
-
+    res.set('Access-Control-Allow-Origin', '*'); 
     const data = JSON.parse(req.body);
-    const geofirestore = new GeoFirestore(admin.firestore());
-
-    return geofirestore.collection(collection).add({
+    const geofirestore = new GeoFirestore(admin.firestore()); 
+    
+    const jobs = createJobFromJobs(data.slots, {
       jobNo: data.jobNo,
       name: data.name,
       site: data.site,
@@ -87,14 +89,28 @@ exports.saveJob = functions.https.onRequest((req, res) => {
       uid: data.uid,
       // The coordinates field must be a GeoPoint!
       coordinates: new admin.firestore.GeoPoint(data.latitude, data.longitude)
-    }).then(() => {
-      res.set('Access-Control-Allow-Origin', '*'); 
-      return res.status(200).send('added')
-    }, (error) => {
-      return res.status(500).json({
-        message: error.message
+    })
+
+    console.log(jobs)
+    let promises = []
+
+    jobs.forEach( j => {
+      promises.push(geofirestore.collection(collection).add(j))
+    })
+
+    return Promise.all(promises).then((response) => {
+      // const docs = response.map((doc) => {
+      //   doc['data'] = doc['data']();
+      //   return doc;
+      // });
+      return res.status(200).send(response)
+    }).catch(err => {
+      return res.status(400).json({
+        message: err.message
       })
     });
+
+    
   } else {
     return res.status(500).json({
       message: 'Invalid Request'
@@ -132,3 +148,14 @@ const _radiusInKm = (area) => {
       return area.radius;
   }
 };
+
+const createJobFromJobs = (slots, otherInfo) => {
+  return Object.keys(slots).map(s => {
+    console.log(slots[s])
+    return {
+      ...otherInfo,
+      date: s,
+      times: slots[s]
+    }
+  })
+}

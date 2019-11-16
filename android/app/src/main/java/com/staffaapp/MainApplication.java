@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.gettipsi.stripe.StripeReactPackage;
 import com.rumax.reactnative.pdfviewer.PDFViewPackage;
 import com.facebook.react.ReactNativeHost;

@@ -324,6 +324,10 @@ export default class AppProvider extends React.Component {
     context.props.navigation.replace(screen);
   };
 
+  replaceScreenPayload = (context, screen, data) => {
+    context.props.navigation.replace(screen, data);
+  };
+
   /*
     Method will be called to jump to other screen
     @context - Context of the component calling method
@@ -488,6 +492,7 @@ export default class AppProvider extends React.Component {
           appResources: this.state.appResources,
           currentScreen: this.state.currentScreen,
           replaceScreen: this.replaceScreen,
+          replaceScreenPayload: this.replaceScreenPayload,
           moveToScreen: this.moveToScreen,
           moveToScreenPayload: this.moveToScreenPayload,
           goBack: this.goBack,

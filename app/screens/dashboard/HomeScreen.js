@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import Header from '../../utils/header';
 import {AppConsumer} from '../../context/AppProvider';
-
+import Geolocation from '@react-native-community/geolocation';
+import Strings from '../../utils/res/Strings'
 
 export default class HomeScreen extends Component {
  constructor(args) {
@@ -14,9 +15,9 @@ export default class HomeScreen extends Component {
 
  componentDidMount(){
    this.context.setCurrentContext(this);
-   navigator.geolocation.getCurrentPosition(
+   Geolocation.getCurrentPosition(
     ({ coords }) => {
-      this.context.apiService.getShiftsData(coords.latitude, coords.longitude, 10, "km", (data) => {
+      this.context.apiService.getShiftsData(12.99, 77.66, 10, "km", (data) => {
         this.setState({shiftsData: data})
        })
     },
@@ -30,6 +31,10 @@ export default class HomeScreen extends Component {
    if(this.context.openFromNotification){
     this.context.performNotificationAction(this);
    }
+ }
+
+ showShift = (item) => () => {
+  this.context.moveToScreenPayload(this, Strings.APP_BID_SCREEN, {item} );
  }
  
  toggleDrawer = () => {
@@ -54,11 +59,18 @@ export default class HomeScreen extends Component {
             extraData={this.state.shiftsData}
             data={this.state.shiftsData}
             renderItem={({ item, index }) =>
+            <TouchableOpacity onPress={this.showShift(item)}>
               <View style={[context.utilities.styles.QualificationListRowBGStyle, {padding: 10}]}>
                 <Text style={context.utilities.styles.jobStyles}>Job Number : {item.jobNo}</Text>
                 <Text style={context.utilities.styles.jobStyles}>Job Name: {item.name}</Text>
                 <Text style={context.utilities.styles.jobStyles}>Budget: {item.cost}</Text>
+                <Text style={context.utilities.styles.jobStyles}>Date: {item.date}</Text>
+                {
+                  !!item.bidUids && item.bidUids.includes(context.currentUser.uid) && 
+                  <Text style={context.utilities.styles.appliedStyle}>Applied</Text>
+                }
               </View>
+            </TouchableOpacity>
             }
           />
           </View>

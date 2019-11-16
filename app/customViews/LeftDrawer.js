@@ -12,7 +12,7 @@ const OPTION_LOGOUT_ID = OPTION_NOTIFICATIONS_ID + 1;
 
 const DRAWER_OPTIONS = [
   {id:OPTION_PROFILE_ID, name:"Profile", screen:Strings.APP_SCREEN_PROFILE, icon:"md-person"},
-  {id:OPTION_SETTINGS_ID, name:"Settings", screen:"", icon:"md-settings"},
+  {id:OPTION_SETTINGS_ID, name:"Settings", screen:Strings.APP_SCREEN_SETTINGS, icon:"md-settings"},
   {id:OPTION_MESSAGES_ID, name:"Messages", screen:Strings.APP_SCREEN_MESSAGES, icon:"md-chatboxes"},
   {id:OPTION_NOTIFICATIONS_ID, name:"Notifications", screen:Strings.APP_SCREEN_NOTIFICATIONS, icon:"md-notifications"},
   {id:OPTION_LOGOUT_ID, name:"Logout", screen:"", icon:"ios-power"},

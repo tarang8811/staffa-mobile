@@ -51,6 +51,8 @@ target 'StaffaApp' do
 
   pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'StaffaAppTests' do
     inherit! :search_paths
     # Pods for testing

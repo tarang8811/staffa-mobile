@@ -368,8 +368,23 @@ export default class ApiService {
     })
   }
 
+  updateJob(jobId, jobData) {
+    firebase.firestore().collection(Strings.FS_COLLECTION_JOBS).doc(jobId).update({
+      d: jobData
+    });
+  }
+
+  addNewBid(jobId, data, jobData, callback) {
+    var bid = firebase.firestore()
+      .collection(Strings.FS_COLLECTION_BIDS)
+    this.updateJob(jobId, jobData)
+    bid.add(data).then((res) => {
+      callback(res)
+    });
+  }
+
   getScreenName(data) {
-    if (data.addressData && data.stripe_account_id) {
+    if (data.addressData) {
       if (data.isTermsAccepted) {
         if (data.isEmploymentAccepted) {
           if (data.isPrivacyAccepted) {
