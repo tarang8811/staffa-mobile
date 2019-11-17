@@ -98,6 +98,8 @@ const Strings = {
   APP_SCREEN_CHAT:"ChatScreen",
   APP_SCREEN_SETTINGS:"SettingsScreen",
   APP_BID_SCREEN:"BidScreen",
+  APP_SCREEN_MY_BIDS:"MyBidsScreen",
+  APP_SCREEN_MY_CONTRACTS:"MyContractsScreen",
 
   registerNotificationMsg:'We need to notify you of compliance related matters, payments and offers relating to your vocation and aspirations. \n\n You can change this settings at any time in your device settings.',
   registerVerificationMsg:'We need to verify your identity using your government issued identification documentation.',

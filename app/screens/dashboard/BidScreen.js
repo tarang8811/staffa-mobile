@@ -41,7 +41,9 @@ export default class BidScreen extends Component {
       times: this.state.selectedItems,
       date: item.date,
       price: this.state.bidPrice,
-      jobId: item.id
+      jobId: item.id,
+      name: item.name,
+      freelancerName: `${this.context.userData.registerData.firstName} ${this.context.userData.registerData.lastName}`
     }
     bidUids.push(this.context.currentUser.uid)
     const jobData = {

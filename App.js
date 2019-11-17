@@ -49,8 +49,11 @@ import BidScreen from './app/screens/dashboard/BidScreen';
 import ProfileScreen from './app/screens/dashboard/drawer/ProfileScreen';
 import SettingsScreen from './app/screens/dashboard/drawer/SettingsScreen';
 import MessagesScreen from './app/screens/dashboard/drawer/MessagesScreen';
+import MyBidsScreen from './app/screens/dashboard/drawer/MyBidsScreen';
+import MyContractsScreen from './app/screens/dashboard/drawer/MyContractsScreen';
 import NotificationsScreen from './app/screens/dashboard/drawer/NotificationsScreen';
 import ChatScreen from './app/screens/dashboard/drawer/messageComponents/ChatScreen';
+
 
 let RootStack = createStackNavigator({
     SplashScreen: {screen : SplashScreen},
@@ -100,7 +103,9 @@ let RootStack = createStackNavigator({
       NotificationsScreen:{screen:NotificationsScreen},
       ChatScreen:{screen:ChatScreen},
       SettingsScreen:{screen: SettingsScreen},
-      BidScreen:{screen: BidScreen}
+      BidScreen:{screen: BidScreen},
+      MyBidsScreen:{screen:MyBidsScreen},
+      MyContractsScreen:{screen:MyContractsScreen}
   },
   {
       initialRouteName: 'SplashScreen',
