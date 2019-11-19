@@ -100,6 +100,7 @@ const Strings = {
   APP_BID_SCREEN:"BidScreen",
   APP_SCREEN_MY_BIDS:"MyBidsScreen",
   APP_SCREEN_MY_CONTRACTS:"MyContractsScreen",
+  APP_SCREEN_MY_PAYMENTS:"MyPaymentsScreen",
 
   registerNotificationMsg:'We need to notify you of compliance related matters, payments and offers relating to your vocation and aspirations. \n\n You can change this settings at any time in your device settings.',
   registerVerificationMsg:'We need to verify your identity using your government issued identification documentation.',
@@ -125,6 +126,7 @@ const Strings = {
   FS_DOC_CONTRACTS : "Contracts",
   FS_COLLECTION_JOBS: "jobs",
   FS_COLLECTION_BIDS: "Bids",
+  FS_COLLECTION_PAYMENTS: "payments",
 
   APP_RESOURCE_EMPLOYMENT_CONTRACT:'EmploymentContract',
   APP_RESOURCE_TNC:'TermsConditions',

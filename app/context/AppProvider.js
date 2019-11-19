@@ -269,7 +269,7 @@ export default class AppProvider extends React.Component {
         this.setUserData(response);
         console.log('getUserData 2 : ' + JSON.stringify(response));
         if (this.callBack) {
-          this.callBack(user);
+          this.callBack(user, response);
         }
       }
     });

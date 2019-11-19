@@ -49,6 +49,7 @@ import BidScreen from './app/screens/dashboard/BidScreen';
 import ProfileScreen from './app/screens/dashboard/drawer/ProfileScreen';
 import SettingsScreen from './app/screens/dashboard/drawer/SettingsScreen';
 import MessagesScreen from './app/screens/dashboard/drawer/MessagesScreen';
+import MyPaymentsScreen from './app/screens/dashboard/drawer/MyPaymentsScreen';
 import MyBidsScreen from './app/screens/dashboard/drawer/MyBidsScreen';
 import MyContractsScreen from './app/screens/dashboard/drawer/MyContractsScreen';
 import NotificationsScreen from './app/screens/dashboard/drawer/NotificationsScreen';
@@ -100,6 +101,7 @@ let RootStack = createStackNavigator({
       HomeScreen:{screen:HomeScreen},
       ProfileScreen:{screen:ProfileScreen},
       MessagesScreen:{screen:MessagesScreen},
+      MyPaymentsScreen:{screen:MyPaymentsScreen},
       NotificationsScreen:{screen:NotificationsScreen},
       ChatScreen:{screen:ChatScreen},
       SettingsScreen:{screen: SettingsScreen},

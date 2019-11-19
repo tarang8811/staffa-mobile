@@ -397,6 +397,29 @@ export default class ApiService {
       });
   }
 
+  getPayments(uid, callback) {
+    let payments = firebase
+    .firestore()
+    .collection(Strings.FS_COLLECTION_PAYMENTS)
+    .where('freelancerId', '==', uid)
+    
+    payments
+      .get()
+      .then(doc => {
+        callback(false, doc.docs.map(d => {
+          return {
+            ...d.data(),
+            id: d.id
+          }
+        }));
+      })
+      .catch(err => {
+        callback(true, null);
+      });
+  }
+
+  
+
   updateJob(jobId, jobData) {
     firebase.firestore().collection(Strings.FS_COLLECTION_JOBS).doc(jobId).update({
       d: jobData

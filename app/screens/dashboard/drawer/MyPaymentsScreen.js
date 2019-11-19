@@ -4,23 +4,19 @@ import Header from '../../../utils/header';
 import {AppConsumer} from '../../../context/AppProvider';
 import Strings from '../../../utils/res/Strings'
 
-export default class MyBidsScreen extends Component {
+export default class MyPaymentsScreen extends Component {
  constructor(args) {
    super(args);
    this.state = {
-     bidsData: []
+    paymentsData: []
     }
  }
 
  componentDidMount(){
    this.context.setCurrentContext(this);
-    this.context.apiService.getBids(this.context.currentUser.uid, false, (err, res) => {
-      this.setState({bidsData: res})
-    })
- }
-
- showShift = (item) => () => {
-  this.context.moveToScreenPayload(this, Strings.APP_BID_SCREEN, {item} );
+   this.context.apiService.getPayments(this.context.currentUser.uid, (err, res) => {
+    this.setState({paymentsData: res})
+  })
  }
  
  onBackPress = () => {
@@ -38,22 +34,22 @@ export default class MyBidsScreen extends Component {
     <AppConsumer>
     {(context) => (
       <View style={context.utilities.styles.root} ref={(ref) => { this.context = context; }}>
-          <Header title="My Bids" {...platformHeaderProps} />
+          <Header title="My Payments" {...platformHeaderProps} />
           <View style = {context.utilities.styles.baseStyle1}>
           
           <FlatList
-            extraData={this.state.bidsData}
-            data={this.state.bidsData}
+            extraData={this.state.paymentsData}
+            data={this.state.paymentsData}
             renderItem={({ item, index }) =>
             <View style={[context.utilities.styles.QualificationListRowBGStyle, {padding: 10}]}>
-              <Text style={context.utilities.styles.jobStyles}>Job Name : {item.name}</Text>
-              <Text style={context.utilities.styles.jobStyles}>Time Slots: {item.times.join(", ")}</Text>
-              <Text style={context.utilities.styles.jobStyles}>Bid Price: {item.price}</Text>
-              <Text style={context.utilities.styles.jobStyles}>Date: {item.date}</Text>
+              <Text style={context.utilities.styles.jobStyles}>Approved Date : {item.date}</Text>
+              <Text style={context.utilities.styles.jobStyles}>Agency Name: {item.agencyName}</Text>
+              <Text style={context.utilities.styles.jobStyles}>Amount: {item.amount}</Text>
               {
-                !!item.approved && 
-                <Text style={context.utilities.styles.appliedStyle}>Hired</Text>
+                item.paidDate && 
+                <Text style={context.utilities.styles.jobStyles}>Paid Date: {item.paidDate}</Text>
               }
+              <Text style={context.utilities.styles.jobStyles}>Status: {item.status}</Text>
             </View>
             }
           />

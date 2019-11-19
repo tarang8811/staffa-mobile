@@ -23,16 +23,16 @@ export default class MyContractsScreen extends Component {
   this.context.moveToScreenPayload(this, Strings.APP_BID_SCREEN, {item} );
  }
  
- toggleDrawer = () => {
-  this.context.toggleDrawer(true)
- }
+ onBackPress = () => {
+  this.context.goBack(this);
+}
  render() {
     const platformHeaderProps = {}
     platformHeaderProps['leftItem'] = {
       title: 'Menu',
-      icon: require('../../../images/menu.png'),
+      icon: require('../../../images/back.png'),
       layout: 'icon',
-      onPress: this.toggleDrawer
+      onPress: this.onBackPress
     }
    return (
     <AppConsumer>

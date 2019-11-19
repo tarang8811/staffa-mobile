@@ -25,14 +25,21 @@ export default class LoginScreen extends Component {
   this.context.showLoading(true);
   apiService.signInWithEmailPassword(this.state.username, this.state.password, (error, response) => {
     if(response){
-      this.context.checkUserAuthentication((user) => {
+      this.context.checkUserAuthentication((user, response) => {
         this.context.showLoading(false);
-        console.log("Login current screen : " + this.context.currentScreen);
-        if(user.emailVerified){
-          this.context.replaceScreen(this, this.context.currentScreen);  
+        if(!!response && !!response.registerData) {
+          console.log("Login current screen : " + this.context.currentScreen);
+          if(user.emailVerified){
+            this.context.replaceScreen(this, this.context.currentScreen);  
+          } else {
+            this.context.clearAllData();
+            this.context.showToast("Please verify your email");
+          }
         } else {
-          this.context.showToast("Please verify your email");
+          this.context.clearAllData();
+          this.context.showToast("This email belongs to an admin account. Please use web to login");
         }
+        
       });
     } else {
       this.context.showLoading(false);
