@@ -79,51 +79,57 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
 });
 
 
-exports.scheduledPayoutCrontab = functions.pubsub.schedule('0 8 * * *').timeZone("GMT").onRun((context) => {
-    return admin.firestore().collection(FS_COLLECTION_PAYMENTS).where("status", "==", "PENDING").get()
-    .then(snapshot => {
-      let promises = []
-      promises = snapshot.docs.map(doc => {
-        const d = doc.data()
-        if(isGreaterThanSevenDays(d.date)) {
-          return admin.firestore().collection(FS_COLLECTION_USERS).where("uid", "==", d.freelancerId).get()
-          .then(snapshot => {
-            let user = snapshot.docs.map(d => d.data())
-            user = user[0]
-            return stripe.payouts.create(
-              {
-                amount: d.amount * 100,
-                currency: 'gbp',
-              },
-              {stripe_account: 'acct_1FbjLqBZIUWX5iRM'}
-            ).then(p => {
-              return doc.update({status: "PAID", payoutId: p.id})
-            })
-            .catch(e => Promise.resolve(e))
-          }).catch(error => {
-            return Promise.resolve(error.message);   
-          })
-        } else {
-          return Promise.resolve('dont update'); 
+exports.approvePayment = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if(req.method === 'POST'){
+      // Creating session data from payload
+      const body = JSON.parse(req.body);
+      const stripe_account = body.stripe_account
+      const paymentId = body.paymentId
+      console.log(body.amount)
+      return stripe.transfers.create(
+        {
+          amount: body.amount * 100,
+          currency: 'usd',
+          destination: stripe_account
         }
-      })
-      return Promise.all(promises).then(p => {
-        return res.status(200).json({
-          data: p
+      ).then(t => {
+        console.log(t)
+        const paymentDoc = admin.firestore().collection(FS_COLLECTION_PAYMENTS).doc(paymentId)
+        return paymentDoc.update({status: "PAID",  transferId: t.id, paymentDate: formatDate(new Date())})
+        then(r => {
+          console.log(r)
+          return res.status(200).json({
+            data: r
+          })
+        }).catch(err => {
+          return res.status(400).json({
+            message: err.message
+          })
+        })
+      }).catch(err => {
+        console.log(err.message)
+        return res.status(400).json({
+          message: err.message
         })
       })
-    }).catch(error => {
-      return res.status(500).json({
-        message: error.message
-      })    
-    })
-}); 
+    } else{
+      return res.status(400).json({
+          message: 'Invalid Request'
+      })
+    }
+  })
+});
 
-isGreaterThanSevenDays = (date) => {
-  console.log(date)
-  const sevenDaysInMillis = 7 * (86400 * 1000)
-  const myDate = new Date(date)
-  const todayDate = new Date()
+formatDate = (d) => {
+  var month = '' + (d.getMonth() + 1);
+  var day = '' + d.getDate();
+  var year = d.getFullYear();
 
-  return Math.abs(todayDate - myDate) > sevenDaysInMillis
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
 }

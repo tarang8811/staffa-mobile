@@ -4,6 +4,7 @@ import Header from '../../utils/header';
 import { AppConsumer } from '../../context/AppProvider';
 import MultiSelect from 'react-native-multiple-select';
 import firebase from 'react-native-firebase';
+import Strings from '.././../utils/res/Strings'
 
 export default class BidScreen extends Component {
 
@@ -34,27 +35,32 @@ export default class BidScreen extends Component {
   };
 
   onSubmitBid = () => {
-    let { item } = this.state
-    let bidUids = !!item.bidUids ? item.bidUids : []
-    let data = {
-      uid: this.context.currentUser.uid,
-      times: this.state.selectedItems,
-      date: item.date,
-      price: this.state.bidPrice,
-      jobId: item.id,
-      name: item.name,
-      freelancerName: `${this.context.userData.registerData.firstName} ${this.context.userData.registerData.lastName}`
-    }
-    bidUids.push(this.context.currentUser.uid)
-    const jobData = {
-      ...item,
-      bidUids,
-      coordinates: new firebase.firestore.GeoPoint(item.coordinates._latitude, item.coordinates._longitude)
-    }
-    this.context.apiService.addNewBid(data.jobId, data, jobData, () => {
 
-    })
-    this.context.goBack(this);
+    if(!!this.context.currentUser.stripe_account_id) {
+      let { item } = this.state
+      let bidUids = !!item.bidUids ? item.bidUids : []
+      let data = {
+        uid: this.context.currentUser.uid,
+        times: this.state.selectedItems,
+        date: item.date,
+        price: this.state.bidPrice,
+        jobId: item.id,
+        name: item.name,
+        freelancerName: `${this.context.userData.registerData.firstName} ${this.context.userData.registerData.lastName}`
+      }
+      bidUids.push(this.context.currentUser.uid)
+      const jobData = {
+        ...item,
+        bidUids,
+        coordinates: new firebase.firestore.GeoPoint(item.coordinates._latitude, item.coordinates._longitude)
+      }
+      this.context.apiService.addNewBid(data.jobId, data, jobData, () => {
+
+      })
+      this.context.goBack(this);
+    } else {
+      this.context.replaceScreen(this.context.currentContext, Strings.APP_SCREEN_SETTINGS);
+    }
   }
 
   render() {

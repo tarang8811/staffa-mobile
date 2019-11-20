@@ -15,9 +15,12 @@ export default class HomeScreen extends Component {
 
  componentDidMount(){
    this.context.setCurrentContext(this);
+   const travel = !!this.context.userData.bio.travelDistance 
+    && this.context.userData.bio.travelDistance.split(' ')
    Geolocation.getCurrentPosition(
     ({ coords }) => {
-      this.context.apiService.getShiftsData(12.99, 77.66, 10, "km", (data) => {
+      
+      this.context.apiService.getShiftsData(coords.latitude, coords.longitude, Number(travel[0]), "mi", (data) => {
         this.setState({shiftsData: data})
        })
     },

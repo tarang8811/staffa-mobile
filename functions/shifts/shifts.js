@@ -87,6 +87,7 @@ exports.saveJobs = functions.https.onRequest((req, res) => {
       cost: data.cost,
       type: data.type,
       uid: data.uid,
+      agencyName: data.agencyName,
       // The coordinates field must be a GeoPoint!
       coordinates: new admin.firestore.GeoPoint(data.latitude, data.longitude)
     })
