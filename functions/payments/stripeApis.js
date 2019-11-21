@@ -94,10 +94,9 @@ exports.approvePayment = functions.https.onRequest((req, res) => {
           destination: stripe_account
         }
       ).then(t => {
-        console.log(t)
         const paymentDoc = admin.firestore().collection(FS_COLLECTION_PAYMENTS).doc(paymentId)
         return paymentDoc.update({status: "PAID",  transferId: t.id, paymentDate: formatDate(new Date())})
-        then(r => {
+        .then(r => {
           console.log(r)
           return res.status(200).json({
             data: r
@@ -120,6 +119,86 @@ exports.approvePayment = functions.https.onRequest((req, res) => {
     }
   })
 });
+
+
+exports.getDashboardLink = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if(req.method === 'POST'){
+      // Creating session data from payload
+      const body = JSON.parse(req.body);
+      return stripe.accounts.createLoginLink(body.stripe_account_id)
+        .then(result => {
+            return res.status(200).json({
+              url: body.account ? `${result.url}#/account`:result.url
+            })
+        }).catch(err => {
+          return res.status(400).json({
+            message: err.message
+        })
+        });
+    } else{
+      return res.status(500).json({
+          message: 'Invalid Request'
+      })
+    }
+  })
+});
+
+exports.getBalance = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if(req.method === 'POST'){
+      // Creating session data from payload
+      const body = JSON.parse(req.body);
+      return stripe.balance.retrieve({
+        stripe_account: body.stripe_account_id
+      })
+        .then(result => {
+            return res.status(200).json({
+              result
+            })
+        }).catch(err => {
+          return res.status(400).json({
+            message: err.message
+        })
+        });
+    } else{
+      return res.status(500).json({
+          message: 'Invalid Request'
+      })
+    }
+  })
+});
+
+exports.createPayout = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if(req.method === 'POST'){
+      // Creating session data from payload
+      const body = JSON.parse(req.body);
+      return stripe.payouts.create({
+        amount: body.amount,
+        currency: 'gbp'
+      },
+      {
+        stripe_account: body.stripe_account_id,
+      })
+        .then(result => {
+            return res.status(200).json({
+              result
+            })
+        }).catch(err => {
+          return res.status(400).json({
+            message: err.message
+        })
+        });
+    } else{
+      return res.status(500).json({
+          message: 'Invalid Request'
+      })
+    }
+  })
+})
+
+
 
 formatDate = (d) => {
   var month = '' + (d.getMonth() + 1);

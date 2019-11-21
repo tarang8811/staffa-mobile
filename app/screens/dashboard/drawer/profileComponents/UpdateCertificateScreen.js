@@ -24,8 +24,8 @@ export default class CertificateScreen extends Component {
  }
 
  componentDidMount(){
-  if(this.context.userData && this.context.userData.cartificates){
-   this.setState(this.context.userData.cartificates);
+  if(this.context.userData && this.context.userData.certificates){
+   this.setState(this.context.userData.certificates);
   }
  } 
 
