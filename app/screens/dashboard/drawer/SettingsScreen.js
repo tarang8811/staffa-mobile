@@ -21,8 +21,12 @@ export default class SettingsScreen extends Component {
     }).then(response => {
       return response.json();
     }).then(data => {
+
+      const availableBalance = data.result.available.length > 0 ? data.result.available[0].amount: 0
+      const pendingBalance = data.result.pending.length > 0 ? data.result.pending[0].amount: 0
+      const balance = availableBalance + pendingBalance
       this.setState({
-        balance: data.result.available.length > 0 ? data.result.available[0].amount / 100: 0
+        balance:  balance / 100
       })
     }).catch(err => {
       console.log(error)
@@ -51,49 +55,49 @@ export default class SettingsScreen extends Component {
   }
 
    onConnectStripe() {
-   if(!this.context.userData.stripe_account_id) {
-    const redirectLink = 'https://us-central1-staffa-13e8a.cloudfunctions.net/getStripeToken'
-    Linking.openURL(
-      `https://connect.stripe.com/express/oauth/authorize?redirect_uri=${redirectLink}
-      &client_id=ca_G7avMzAcG0pABNlEcaGIT1q3s8pGTG3C&state=${this.context.currentUser.uid}&stripe_user[business_type]=individual`
-    ).catch(err => console.error('An error occurred', err))
-   }
- }
+    if(!this.context.userData.stripe_account_id) {
+      const redirectLink = 'https://us-central1-staffa-13e8a.cloudfunctions.net/getStripeToken'
+      Linking.openURL(
+        `https://connect.stripe.com/express/oauth/authorize?redirect_uri=${redirectLink}
+        &client_id=ca_G7avMzAcG0pABNlEcaGIT1q3s8pGTG3C&state=${this.context.currentUser.uid}&stripe_user[business_type]=individual`
+      ).catch(err => console.error('An error occurred', err))
+    }
+  }
 
- showStripeAccount = (account) => {
-  fetch('https://us-central1-staffa-13e8a.cloudfunctions.net/getDashboardLink/', {
-    method: 'POST',
-    body: JSON.stringify({
-      stripe_account_id: this.context.userData.stripe_account_id,
-      account
-    }),
-  }).then(response => {
-    return response.json();
-  }).then(data => {
-    Linking.openURL(
-      data.url
-    ).catch(err => console.error('An error occurred', err))
-  }).catch(err => {
-    console.log(error)
-  });
- }
+  showStripeAccount = (account) => {
+    fetch('https://us-central1-staffa-13e8a.cloudfunctions.net/getDashboardLink/', {
+      method: 'POST',
+      body: JSON.stringify({
+        stripe_account_id: this.context.userData.stripe_account_id,
+        account
+      }),
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      Linking.openURL(
+        data.url
+      ).catch(err => console.error('An error occurred', err))
+    }).catch(err => {
+      console.log(error)
+    });
+  }
 
- onPayout = () => {
-  fetch('https://us-central1-staffa-13e8a.cloudfunctions.net/createPayout/', {
-    method: 'POST',
-    body: JSON.stringify({
-      stripe_account_id: this.context.userData.stripe_account_id,
-      amount: this.state.balance * 100
-    }),
-  }).then(response => {
-    return response.json();
-  }).then(data => {
-    alert("Your payout was successful")
-    this.setState({balance: 0})
-  }).catch(err => {
-    console.log(error)
-  });
- }
+  onPayout = () => {
+    fetch('https://us-central1-staffa-13e8a.cloudfunctions.net/createPayout/', {
+      method: 'POST',
+      body: JSON.stringify({
+        stripe_account_id: this.context.userData.stripe_account_id,
+        amount: this.state.balance * 100
+      }),
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      alert("Your payout was successful")
+      this.setState({balance: 0})
+    }).catch(err => {
+      console.log(error)
+    });
+  }
 
   render() {
     const platformHeaderProps = {}
