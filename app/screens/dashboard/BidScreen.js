@@ -36,7 +36,7 @@ export default class BidScreen extends Component {
 
   onSubmitBid = () => {
 
-    if(!!this.context.currentUser.stripe_account_id) {
+    if(!!this.context.userData.stripe_account_id) {
       let { item } = this.state
       let bidUids = !!item.bidUids ? item.bidUids : []
       let data = {

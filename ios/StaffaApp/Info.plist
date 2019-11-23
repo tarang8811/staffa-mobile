@@ -37,8 +37,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Staffa requires location access to show you shifts</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Staffa requires location access to show you shifts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>QUEEN OF THE MODERN AGE.ttf</string>
