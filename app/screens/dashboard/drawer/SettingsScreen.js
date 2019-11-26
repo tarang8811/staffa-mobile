@@ -13,6 +13,7 @@ export default class SettingsScreen extends Component {
   }
 
   getBalance = () => {
+    this.context.getUserData(this.context.currentUser)
     fetch('https://us-central1-staffa-13e8a.cloudfunctions.net/getBalance/', {
       method: 'POST',
       body: JSON.stringify({
@@ -36,18 +37,9 @@ export default class SettingsScreen extends Component {
   componentDidMount() {
     this.context.setCurrentContext(this);
     this.getBalance()
-    Linking.addEventListener('url', this.handleOpenURL);
-  }
-
-  componentWillUnmount() {
-    Linking.removeEventListener('url', this.handleOpenURL);
-  }
-
-  handleOpenURL(event) {
-    console.log(event.url);
-    const route = event.url.replace(/.*?:\/\//g, '');
-    this.getBalance()
-    // do something with the url, in our case navigate(route)
+    Linking.addEventListener('url', ({ url }) => {
+      this.getBalance()
+    })
   }
 
   onBackPress = () => {

@@ -26,12 +26,18 @@ exports.getStripeToken = functions.https.onRequest((req, res) => {
       grant_type: 'authorization_code',
       code: code,
     }).then(response => {
-      admin.firestore().collection(FS_COLLECTION_USERS)
+      return admin.firestore().collection(FS_COLLECTION_USERS)
       .doc(uid)
-      .update({stripe_account_id: response.stripe_user_id});
-      return res.status(200).json({
-        message: 'Success. Please go back to the app'
-      })
+      .update({stripe_account_id: response.stripe_user_id})
+      .then(d => {
+        console.log(d)
+        return res.redirect('https://staffa-13e8a.firebaseapp.com/mobileApp')
+      }).catch(error => {
+        return res.status(500).json({
+          message: error
+        })
+      });
+      
     });
   } else{
     return res.status(500).json({

@@ -486,6 +486,7 @@ export default class AppProvider extends React.Component {
           checkUserAuthentication: this.checkUserAuthentication,
           setCurrentScreen: this.setCurrentScreen,
           setUserData: this.setUserData,
+          getUserData: this.getUserData,
           updateUserData: this.updateUserData,
           currentUser: this.state.user,
           userData: this.state.userData,
