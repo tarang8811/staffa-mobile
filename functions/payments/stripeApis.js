@@ -80,6 +80,7 @@ exports.createCheckoutSession = functions.https.onRequest((req, res) => {
           payment_method_types: ['card'],
           line_items: [lineItem],
           customer: body.customerId,
+          customer_email: body.customer_email,
           success_url:
             'https://staffa-13e8a.firebaseapp.com/settings?response=success',
           cancel_url:
